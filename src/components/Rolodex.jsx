@@ -1,23 +1,26 @@
 import Person from "./Person";
-import { FAMILY_TREE } from "../data";
+import { FAMILY_TREE } from "../data.js";
+import { useState } from "react";
 
 export default function Rolodex() {
-  const people = [];
-  people.push(FAMILY_TREE.database.people);
+  const data = [];
+  data.push(FAMILY_TREE.database.people.person);
 
-  console.log(people);
+  const [people, setPeople] = useState(data[0]);
 
   return (
     <section id="rolodex">
       <h2>Rolodex</h2>
       <ul>
-        {people.map((person, index) => (
+        {people.map((person) => {
           <Person
-            key={person.person[index]}
-            name={person.person[index].name.first}
-            gender={person.person[index].gender}
-          />
-        ))}
+            key={person._id}
+            people={people}
+            firstName={person.name.first}
+            surName={person.name.surname}
+            gender={person.gender}
+          />;
+        })}
       </ul>
     </section>
   );
